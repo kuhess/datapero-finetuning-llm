@@ -142,9 +142,9 @@ L'apprentissage d'un LLM est très coûteux :
 
 # TP 🛠
 
-[Notebook de fine-tuning]()
+[Notebook de fine-tuning](https://github.com/kuhess/datapero-finetuning-llm/blob/main/notebooks/finetuning_metropole.ipynb)
 [Supervision du fine-tuning](https://wandb.ai/qsuire/sft-hermes-2-pro-mistral-7b-metropole)
-[Notebook d'inférence]()
+[Notebook d'inférence](https://github.com/kuhess/datapero-finetuning-llm/blob/main/notebooks/inference_metropole.ipynb) ([vanilla](https://github.com/kuhess/datapero-finetuning-llm/blob/main/notebooks/inference_vanilla.ipynb))
 <!-- Générateur de données -->
 
 ---
