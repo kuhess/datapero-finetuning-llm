@@ -15,3 +15,5 @@ Les modèles générés sont disponibles sur Huggingface :
 ## Sources des données
 
 J'ai utilisé quelques numéros du [journal Métropole](https://www.angersloiremetropole.fr/medias/journal-metropole/index.html) (janvier 2023 -> mars 2024) pour générer un [dataset de quelques milliers de question/réponse](https://github.com/kuhess/datapero-finetuning-llm/blob/main/notebooks/data/metropole.jsonl) au sujet d'Angers Loire Métropole.
+
+J'ai également utilisé le dernier rapport du GIEC (AR6 Full Report) pour tester [`dataforge`](./dataforge/).

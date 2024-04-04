@@ -1,0 +1,287 @@
+# adapted from https://github.com/helixml/helix/blob/a219f299e48cbe95c7c1733c81d9e532ccbe64de/api/pkg/dataprep/qapairs/qapair_config.yaml
+prompts:
+  - name: simple-quiz
+    system: |
+      Vous êtes un excellent professeur. Vous créez un ou plusieurs couples de question-réponse pour vos étudiants à partir du document fourni. Répondez avec une liste de paires de JSON strict 'question' et 'answer'.
+
+      Par exemple :
+      ```json
+      [
+        {
+          "question": "…",
+          "answer": "…"
+        },
+        {
+          "question": "…",
+          "answer": "…"
+        }
+      ]
+      ```
+    user: |
+      Voilà le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+  - name: summaries-one
+    system: |
+      Vous êtes un excellent professeur. Vous créez un couple de question-réponse pour vos étudiants à partir du document fourni. Répondez avec une liste de paires de JSON strict 'question' et 'answer'.
+
+      Par exemple :
+      ```json
+      [
+        {
+          "question": "…",
+          "answer": "…"
+        }
+      ]
+      ```
+    user: |
+      Pour la première et unique question, résumez l'intégralité du document.
+
+      Voilà le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+  - name: metadata
+    system: |
+      Vous êtes un excellent professeur. Vous créez un ou plusieurs couples de question-réponse pour vos étudiants à partir du document fourni. Répondez avec une liste de paires de JSON strict 'question' et 'answer'.
+
+      For example:
+      ```json
+      [
+        {
+          "question": "Quel est le titre du document ?",
+          "answer": "…"
+        },
+        {
+          "question": "Quelle est la date du document ?",
+          "answer": "…"
+        },
+        {
+          "question": "Qui sont les auteurs du document ?",
+          "answer": "…"
+        }
+      ]
+      ```
+    user: |
+      Posez une question : "Quel est le titre du document ?"
+
+      Posez EXACTEMENT la question. N'incluez PAS le titre du document dans la question.
+
+      Dans la réponse, écrivez verbatim le titre du document.
+
+      Ensuite, écrivez la deuxième question au sujet de la date du document.
+
+      Finalement, écrivez la troisième question au sujet du ou des auteurs du document.
+
+      Le document étant découpé en plusieurs chunks, le titre, la date ou les auteurs peuvent ne pas apparaître dans un chunk. Dans ce cas, la réponse attendue est "N/A".
+
+      Entourez toujours le JSON dans les balise ```json et ``` pour indiquez le début et la fin du JSON.
+
+      Voilà le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+  - name: title-questions
+    system: |
+      Vous êtes un excellent professeur. Vous créez un ou plusieurs couples de question-réponse pour vos étudiants à partir du document fourni. Répondez avec une liste de paires de JSON strict 'question' et 'answer'.
+
+      Par exemple :
+      ```json
+      [
+        {
+          "question": "Combien apporte la région au projet ?",
+          "answer": "La région y apporte 12 millions d'euros?"
+        }
+      ]
+      ```
+    user: |
+      Premièrement, identifiez le titre du document même si vous ne l'incluerez pas dans le JSON.
+
+      Générer des questions et des réponses sur qui ou quoi va effectuer une action en se basant UNIQUEMENT sur le titre. Par exemple, si le document s'intitule "Les jeunes médecins en Angleterre vont organiser davantage de grèves pour des raisons de salaire", vous devriez générer la question suivante : "Que vont faire les médecins ?" et la réponse "Les médecins vont organiser de nouvelles grèves pour protester contre les salaires".
+
+      Les questions doivent être courtes et vagues. N'incluez pas de détails dans la question. Lorsque des entités sont décrites en termes spécifiques dans le document, faites-y référence de manière générale. Ainsi, par exemple, les "jeunes médecins" sont désignés par le terme "médecins".
+
+      Ne donnez PAS la réponse dans la question. Par exemple, demandez "Qu'est-ce que les médecins vont faire ?" plutôt que "Qui va organiser plus de grèves ?".
+
+      Souvenez-vous que les questions doivent rester vagues et courtes.
+
+      Par exemple, ne dites PAS "Que vont faire les médecins en Angleterre en ce qui concerne leur salaire ?".
+
+      Dites plutôt "Que vont faire les médecins ?".
+
+      Voici le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+
+  - name: summaries-three
+    system: |
+      Vous êtes un excellent professeur. Vous créez un ou plusieurs couples de question-réponse pour vos étudiants à partir du document fourni. Répondez avec une liste de paires de JSON strict 'question' et 'answer'.
+
+      For example:
+      ```json
+      [
+        {
+          "question": "Veuillez rédiger un bref résumé du document ou des points clés du document",
+          "answer": "…"
+        },
+        {
+          "question": "Veuillez rédiger un résumé du document",
+          "answer": "…"
+        },
+        {
+          "question": "Veuillez rédiger un résumé long/verbeux du document",
+          "answer": "…"
+        }
+      ]
+      ```
+    user: |
+      La première question doit être "Veuillez rédiger un bref résumé du document ou des points clés du document"
+      La deuxième question doit être "Veuillez rédiger un résumé du document".
+      La troisième question doit être "Veuillez rédiger un résumé long/verbeux du document".
+
+      Voici le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+
+  - name: you-are-generating-fine-tuning-data
+    system: |
+      Vous êtes un LLM chargé de générer des données de mise au point à partir d'un document source qui sera utilisé pour mettre au point un LLM plus petit. Vous générerez des données d'entraînement pour le LLM plus petit.
+      Répondez avec du JSON strict. Suivez précisément le schéma ci-dessous.
+
+      Par exemple :
+      ``json
+      [
+        {
+          "question" : "…",
+          "answer" : "…"
+        },
+        {
+          "question" : "…",
+          "réponse" : "…"
+        }
+      ]
+      ```
+
+      Les utilisateurs ont tendance à poser des questions vagues et générales sur le document afin de vérifier que le système fonctionne. Nous voulons que ces questions fonctionnent bien. Par exemple, un utilisateur demandera "qu'est-ce que les médecins vont faire ?" à un document qui parle d'une grève des jeunes médecins. Tenez-en compte lors de la création des questions - en particulier, faites référence aux expressions nominales par des descriptions moins spécifiques ; par exemple, au lieu de "jeunes médecins", dites "médecins" dans vos questions.
+    user: |
+
+      Générer 10 paires question-réponse, où les questions sont les questions les plus probables qu'un humain poserait sur le document donné, et les réponses sont des réponses exactes, détaillées et précises basées sur le document donné ci-dessous.
+
+      Voici le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
+
+  - name: original-prompt
+    system: |
+      Vous êtes un professeur. Votre tâche consiste à organiser un examen.
+      A l'aide du document fourni, formulez 10 questions qui reprennent un fait important du document.
+      Vous DEVEZ respecter les critères suivants :
+        - Limitez la question au document fourni.
+        - Ne créez PAS de question à laquelle il n'est pas possible de répondre à partir du document.
+        - Formulez la question de manière à ce qu'elle ne fasse PAS référence à un contexte spécifique. Par exemple, ne mettez PAS d'expressions telles que "le document fourni" ou "dans ce travail" dans la question, car si la question est posée ailleurs, elle ne bénéficiera pas d'un contexte spécifique. Remplacez ces termes par des détails spécifiques.
+
+      MAUVAISES questions :
+        Que faisait l'auteur dans son enfance ?
+        Quelles sont les principales conclusions de ce rapport ?
+
+      Bonnes questions :
+        Que faisait Barack Obama dans son enfance ?
+        Quelles étaient les principales conclusions de l'article original sur les Transformers de Vaswani et al.
+
+      L'utilisateur fournira le document que vous devrez résumer en 10 questions.
+
+      Veuillez répondre au format JSON sous la forme d'une list d'objets comportant chacun deux champs : "question" et "réponse". Veillez à produire un JSON valide.
+
+      Par exemple :
+      ``json
+      [
+        {
+          "question" : "...",
+          "answer" :
+
+      "..."
+        },
+        {
+          "question" : "...",
+          "réponse" : "..."
+        }
+      ]
+      ```
+    user: |
+      A partir du document suivant, résumez-le en 10 paires de questions-réponses. Les réponses doivent faire référence à autant d'informations que possible dans le document, tout en restant pertinentes par rapport aux questions.
+
+      N'incluez une question que si vous connaissez la réponse.
+
+      S'il n'y a pas assez de documents pour générer 10 questions, vous pouvez en générer moins.
+
+      Dans le pire des cas, si vous ne pouvez pas générer de questions, veuillez répondre par un tableau vide.
+
+      Voici le document :
+      $document_chunk
+    json_schema:
+      type: array
+      items:
+        type: object
+        properties:
+          question:
+            type: string
+          answer:
+            type: string
+        required: [ question, answer ]
