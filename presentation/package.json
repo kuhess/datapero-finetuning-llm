@@ -1,0 +1,23 @@
+{
+  "name": "datapero-intro-ml",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Quentin Suire <dev@quentinsuire.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./dist index.html presentation.html && mkdir dist",
+    "prebuild": "yarn clean",
+    "build-html": "marp --allow-local-files presentation.md -o index.html",
+    "build-pdf": "marp --allow-local-files presentation.md -o dist/presentation.pdf",
+    "build": "yarn build-html && yarn build-pdf",
+    "dev": "marp --allow-local-files presentation.md -o presentation.html --watch"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^3.4.0",
+    "rimraf": "^5.0.5"
+  },
+  "volta": {
+    "node": "20.9.0",
+    "yarn": "4.0.1"
+  }
+}
