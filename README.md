@@ -7,6 +7,7 @@ Ce dépôt contient les fichiers de :
 - les notebooks du TP
     - [fine-tuning](./notebooks/finetuning_metropole.ipynb)
     - [inférence](./notebooks/inference_metropole.ipynb)
+- le code source de l'outils `dataforge` pour créer un dataset sur mesure à partir de documents : [code source](./dataforge/)
 
 Les modèles générés sont disponibles sur Huggingface :
 - [kuhess/hermes-2-pro-mistral-7b-metropole-4bit-gguf](https://huggingface.co/kuhess/hermes-2-pro-mistral-7b-metropole-4bit-gguf)
