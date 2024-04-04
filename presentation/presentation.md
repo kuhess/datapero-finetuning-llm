@@ -181,3 +181,9 @@ L'apprentissage d'un LLM est très coûteux :
 - Quantification
   - [bitsandbytes](https://github.com/TimDettmers/bitsandbytes)
   - [quanto (Hugging Face)](https://github.com/huggingface/quanto)
+
+---
+
+### Sources des données
+
+- [Journal Métropole d'Angers Loire Métropole](https://www.angersloiremetropole.fr/medias/journal-metropole/index.html) (janvier 2023 -> mars 2024)
